@@ -23,6 +23,7 @@ const articleSchema = mongoose.Schema({
 //model
 const Article = mongoose.model("Article", articleSchema);
 
+//route for home route
 app.get("/", (req, res)=>{
     res.send("Your app is healty and running on the port " + port);
 })
