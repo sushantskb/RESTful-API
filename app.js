@@ -54,6 +54,16 @@ app.post("/articles", (req, res)=>{
     });
 });
 
+//use of delete method to delete all the article
+app.delete("/articles", (req, res)=>{
+    Article.deleteMany((err)=>{
+        if(!err){
+            res.send("Successfully deteled all the data");
+        } else{
+            res.send(err);
+        }
+    });
+});
 
 app.listen(port, ()=>{
     console.log("Your app is listening on the port " + port);
