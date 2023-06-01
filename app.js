@@ -32,7 +32,7 @@ app.get("/", (req, res)=>{
 app.get("/articles", (req, res)=>{
     Article.find((err, foundArticles)=>{
         if(err){
-            console.log(err);
+            res.send(err);
         } else{
             res.send(foundArticles);
         }
@@ -41,8 +41,17 @@ app.get("/articles", (req, res)=>{
 
 //use of POST method to create a data in the database
 app.post("/articles", (req, res)=>{
-    console.log(req.body.tittle);
-    console.log(req.body.content);
+    const newArticle = new Article({
+        tittle: req.body.tittle,
+        content: req.body.content
+    });
+    newArticle.save((err)=>{
+        if(!err){
+            res.send("successfully enterd the data");
+        } else{
+            res.send("Oops error found");
+        }
+    });
 });
 
 
