@@ -28,6 +28,7 @@ app.get("/", (req, res) => {
     res.send("Your app is healty and running on the port " + port);
 })
 
+// -----------------------------------------------------Route for all articles--------------------------------------------------
 //route handelers
 app.route("/articles").
     get((req, res) => {
@@ -58,6 +59,18 @@ app.route("/articles").
                 res.send("Successfully deteled all the data");
             } else {
                 res.send(err);
+            }
+        });
+    });
+
+// -------------------------------------------------------------Route for a specific article----------------------------------
+app.route("/articles/:articleTitle").
+    get((req, res)=>{
+        Article.find({tittle:req.params.articleTitle},(err,foundArticle)=>{
+            if(foundArticle){
+                res.send(foundArticle)
+            } else{
+                res.send("Article not found");
             }
         });
     });
