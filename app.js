@@ -73,6 +73,20 @@ app.route("/articles/:articleTitle").
                 res.send("Article not found");
             }
         });
+    })
+    .put((req, res)=>{
+        Article.updateOne(
+            {tittle: req.params.articleTitle},
+            {tittle: req.body.tittle, content: req.body.content},
+            {overwrite: true},
+            function(err){
+                if(!err){
+                    res.send("Successfull");
+                } else{
+                    req.send(err);
+                }
+            }
+        );
     });
 
 
