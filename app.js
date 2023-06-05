@@ -1,3 +1,4 @@
+// using mongoose 5.13.16
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
@@ -76,7 +77,7 @@ app.route("/articles/:articleTitle").
     })
     .put(function(req, res){
 
-        Article.updateOne(
+        Article.update(
           {title: req.params.articleTitle},
           {title: req.body.title, content: req.body.content},
           {overwrite: true},
@@ -95,6 +96,19 @@ app.route("/articles/:articleTitle").
             function(err){
                 if(!err){
                     res.send("Succesfully updated article.");
+                } else{
+                    res.send(err);
+                }
+            }
+        );
+    })
+
+    .delete((req, res)=>{
+        Article.deleteOne(
+            {tittle: req.params.articleTitle},
+            function(err){
+                if(!err){
+                    res.send("Succesfully deleted the selected article.");
                 } else{
                     res.send(err);
                 }
