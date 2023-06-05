@@ -74,16 +74,29 @@ app.route("/articles/:articleTitle").
             }
         });
     })
-    .put((req, res)=>{
+    .put(function(req, res){
+
         Article.updateOne(
+          {title: req.params.articleTitle},
+          {title: req.body.title, content: req.body.content},
+          {overwrite: true},
+          function(err){
+            if(!err){
+              res.send("Successfully updated the selected article.");
+            }
+          }
+        );
+    })
+
+    .patch((req, res)=>{
+        Article.update(
             {tittle: req.params.articleTitle},
-            {tittle: req.body.tittle, content: req.body.content},
-            {overwrite: true},
+            {$set: req.body},
             function(err){
                 if(!err){
-                    res.send("Successfull");
+                    res.send("Succesfully updated article.");
                 } else{
-                    req.send(err);
+                    res.send(err);
                 }
             }
         );
